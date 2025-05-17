@@ -72,19 +72,31 @@
                         <div class='flex items-center justify-center min-h-screen'>
                             <div class='w-full max-w-lg px-10 py-8 mx-auto bg-white rounded-lg shadow-xl'>
                                 <div class='max-w-md mx-auto space-y-6'>
-                                    <form action="" method="POST" enctype="multipart/form-data">
+                                    <form action="{{ route('applications.store') }}" method="POST"
+                                        enctype="multipart/form-data">
                                         @csrf
                                         <h2 class="text-2xl font-bold text-center">Submit your application</h2>
                                         <hr class="my-6">
                                         <label class="uppercase text-sm font-bold opacity-70">Subject</label>
-                                        <input type="text"
-                                            class="p-3 mt-2 mb-4 w-full bg-slate-200 rounded border-2 border-slate-200 focus:border-slate-600 focus:outline-none">
+                                        <input type="text" name="subject" required value="{{ old('subject') }}"
+                                            class=" p-3 mt-2 mb-4 w-full
+                                            bg-slate-200 rounded border-2 border-slate-200 focus:border-slate-600
+                                            focus:outline-none @error('subject') border-red-500 bg-red-100 @enderror">
+                                        @error('subject')
+                                            <p class="text-red-600 text-sm mt-1 ml-1">{{ $message }}</p>
+                                        @enderror
                                         <label class="uppercase text-sm font-bold opacity-70">Message</label>
-                                        <textarea name="subject" id="subject" rows="5"
-                                            class="p-3 mt-2 mb-4 w-full bg-slate-200 rounded border-2 border-slate-200 focus:border-slate-600 focus:outline-none"></textarea>
+                                        <textarea name="message" id="message" rows="5" required
+                                            class=" p-3 mt-2 mb-4 w-full bg-slate-200 rounded border-2 border-slate-200 focus:border-slate-600 focus:outline-none @error('message') border-red-500 bg-red-100 @enderror">{{ old('message') }}</textarea>
+                                        @error('message')
+                                            <p class="text-red-600 text-sm mt-1 ml-1">{{ $message }}</p>
+                                        @enderror
                                         <label class="uppercase text-sm font-bold opacity-70">File</label>
-                                        <input type="file"
-                                            class="p-3 mt-2 mb-4 w-full bg-slate-200 rounded border-2 border-slate-200 focus:border-slate-600 focus:outline-none">
+                                        <input type="file" name="file"
+                                            class="p-3 mt-2 mb-4 w-full bg-slate-200 rounded border-2 border-slate-200 focus:border-slate-600 focus:outline-none @error('file') border-red-500 bg-red-100 @enderror">
+                                        @error('file')
+                                            <p class="text-red-600 text-sm mt-1 ml-1">{{ $message }}</p>
+                                        @enderror
                                         <input type="submit"
                                             class="py-3 px-6 my-2 float-end bg-emerald-500 text-white font-medium rounded hover:bg-indigo-500 cursor-pointer ease-in-out duration-300"
                                             value="Send">
